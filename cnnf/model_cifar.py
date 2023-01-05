@@ -139,7 +139,7 @@ class NetworkBlock(nn.Module):
         if (inter==False):
             return x
         elif (inter==True):
-            return x, orig_feature
+            return x, x#orig_feature
 
 
 class WideResNet(nn.Module):
@@ -201,14 +201,14 @@ class WideResNet(nn.Module):
             if (inter==True):
                 block3 = out
             out = self.relu(self.ins1_bias(self.ins1(out)))
-            out = F.avg_pool2d(out, 8)
+            out = F.avg_pool2d(out, 8)#*4)
             out = self.flatten(out)
             out = self.fc_bias(self.fc(out))
 
         elif ('backward' in step):
             out = self.fc(out, step='backward')
             out = self.flatten(out, step='backward')
-            out = F.interpolate(out, scale_factor=8)
+            out = F.interpolate(out, scale_factor=8)#*4)
             out = self.ins1(out)
             out = self.relu(out, step='backward')
             block3_recon = out

@@ -230,7 +230,7 @@ def main():
 
     
     args = parser.parse_args()
- 
+    print(args)
     if not os.path.exists(args.model_dir):
         os.makedirs(args.model_dir)
 
@@ -246,11 +246,11 @@ def main():
       [transforms.RandomHorizontalFlip(),
        transforms.RandomCrop(32, padding=4),
        transforms.ToTensor(),
-       transforms.Normalize([0.5] * 3, [0.5] * 3)])      
+       transforms.Normalize([0.5] * 3, [0.5] * 3)])#, transforms.Resize(32*4)])
     
     test_transform_cifar = transforms.Compose(
       [transforms.ToTensor(),
-       transforms.Normalize([0.5] * 3, [0.5] * 3)])
+       transforms.Normalize([0.5] * 3, [0.5] * 3)])#, transforms.Resize(32*4)])
     
     transform_mnist = transforms.Compose(
       [transforms.ToTensor(),
